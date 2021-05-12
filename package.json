@@ -1,0 +1,12 @@
+{
+  "name": "resume",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:varzy/resume.git",
+  "author": "zy <varzy@live.com>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "prettier --write --single-quote ./**/*.{md,js,css}",
+    "deploy": "git add . && git commit -m \"update\" && git push"
+  }
+}

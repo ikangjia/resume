@@ -1,0 +1,53 @@
+body {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: #e0e0e0;
+}
+
+#write {
+  background-color: #fff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 40px rgba(0, 0, 0, 0.06) inset;
+}
+
+.pin {
+  display: block;
+  position: fixed;
+  right: -24px;
+  width: 120px;
+  text-align: left;
+  padding: 12px 0 12px 24px;
+  font-size: 16px;
+  background-color: #2d2d2d;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 6px 0 0 6px;
+  transition: all 0.3s ease-out;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+
+.pin:hover {
+  right: 0;
+  background-color: #5a5a5a;
+}
+
+.pin.pdf_downloader {
+  top: 200px;
+}
+
+.pin.md_downloader {
+  top: 260px;
+}
+
+@media screen and (max-width: 768px) {
+  .pin {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  body {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
