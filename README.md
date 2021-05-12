@@ -51,5 +51,5 @@
 
 7. 如果访问你的 https://xxx.github.io/resume/ 失败，可参考博文
 
-   [我的在线简历弄好了，记 GitHub Pages 的一次填坑！](https://kangjia1324.github.io/06-git/Github Pages 使用中的一次填坑/)
+   `https://kangjia1324.github.io/06-git/Github Pages 使用中的一次填坑/`
 
