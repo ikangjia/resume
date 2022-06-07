@@ -1,7 +1,12 @@
 body {
-  padding-top: 30px;
+  padding-top: 10px;
   padding-bottom: 30px;
   background-color: #e0e0e0;
+}
+
+article {
+  background-color: white;
+  padding: 30px 50px 20px;
 }
 
 #write {
