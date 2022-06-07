@@ -1,1732 +1,954 @@
-<!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset='UTF-8'>
-    <meta name='viewport' content='width=device-width initial-scale=1'>
-
-    <link href='file://C://Users//kjgym//AppData//Roaming//Typora/themes/vue/fonts.css' rel='stylesheet'
-        type='text/css' />
-    <style type='text/css'>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="stylesheet" href="assets/index.css">
+	<style>
+        /* cspell:disable-file */
+        /* webkit printing magic: print all background colors */
         html {
-            overflow-x: initial !important;
+            -webkit-print-color-adjust: exact;
         }
 
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --select-text-bg-color: #B5D6FC;
-            --select-text-font-color: auto;
-            --monospace: "Lucida Console", Consolas, "Courier", monospace;
-            --title-bar-height: 20px;
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact;
         }
 
-        .mac-os-11 {
-            --title-bar-height: 28px;
+        html,
+        body {
+            margin: 0;
+            padding: 0;
         }
 
-        html {
-            font-size: 14px;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
+        @media only screen {
+            body {
+                margin: 2em auto;
+                max-width: 900px;
+                color: rgb(55, 53, 47);
+            }
         }
 
         body {
-            margin: 0px;
-            padding: 0px;
-            height: auto;
-            bottom: 0px;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            font-size: 1rem;
-            line-height: 1.42857;
-            overflow-x: hidden;
-            background: inherit;
-            tab-size: 4;
+            line-height: 1.5;
         }
 
-        iframe {
-            margin: auto;
+        a,
+        a.visited {
+            color: inherit;
+            text-decoration: underline;
         }
 
-        a.url {
+        .pdf-relative-link-path {
+            font-size: 80%;
+            color: #444;
+        }
+
+        h1,
+        h2,
+        h3 {
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            font-weight: 600;
+            margin-bottom: 0;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 0.75em;
+        }
+
+        h1 {
+            font-size: 1.875rem;
+            margin-top: 1.875rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-top: 1.25rem;
+        }
+
+        .source {
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            padding: 1.5em;
             word-break: break-all;
         }
 
-        a:active,
-        a:hover {
-            outline: 0px;
+        .callout {
+            border-radius: 3px;
+            padding: 1rem;
         }
 
-        .in-text-selection,
-        ::selection {
-            text-shadow: none;
-            background: var(--select-text-bg-color);
-            color: var(--select-text-font-color);
+        figure {
+            margin: 1.25em 0;
+            page-break-inside: avoid;
         }
 
-        #write {
-            margin: 0px auto;
-            height: auto;
-            width: inherit;
-            word-break: normal;
-            overflow-wrap: break-word;
-            position: relative;
-            white-space: normal;
-            overflow-x: visible;
-            padding-top: 36px;
+        figcaption {
+            opacity: 0.5;
+            font-size: 85%;
+            margin-top: 0.5em;
         }
 
-        #write.first-line-indent p {
-            text-indent: 2em;
+        mark {
+            background-color: transparent;
         }
 
-        #write.first-line-indent li p,
-        #write.first-line-indent p * {
-            text-indent: 0px;
+        .indented {
+            padding-left: 1.5em;
         }
 
-        #write.first-line-indent li {
-            margin-left: 2em;
-        }
-
-        .for-image #write {
-            padding-left: 8px;
-            padding-right: 8px;
-        }
-
-        body.typora-export {
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-
-        .typora-export .footnote-line,
-        .typora-export li,
-        .typora-export p {
-            white-space: pre-wrap;
-        }
-
-        .typora-export .task-list-item input {
-            pointer-events: none;
-        }
-
-        @media screen and (max-width: 500px) {
-            body.typora-export {
-                padding-left: 0px;
-                padding-right: 0px;
-            }
-
-            #write {
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-
-            .CodeMirror-sizer {
-                margin-left: 0px !important;
-            }
-
-            .CodeMirror-gutters {
-                display: none !important;
-            }
-        }
-
-        #write li>figure:last-child {
-            margin-bottom: 0.5rem;
-        }
-
-        #write ol,
-        #write ul {
-            position: relative;
+        hr {
+            background: transparent;
+            display: block;
+            width: 100%;
+            height: 1px;
+            visibility: visible;
+            border: none;
+            border-bottom: 1px solid rgba(55, 53, 47, 0.09);
         }
 
         img {
             max-width: 100%;
-            vertical-align: middle;
-            image-orientation: from-image;
         }
 
-        button,
-        input,
-        select,
-        textarea {
-            color: inherit;
-            font: inherit;
-        }
-
-        input[type="checkbox"],
-        input[type="radio"] {
-            line-height: normal;
-            padding: 0px;
-        }
-
-        *,
-        ::after,
-        ::before {
-            box-sizing: border-box;
-        }
-
-        #write h1,
-        #write h2,
-        #write h3,
-        #write h4,
-        #write h5,
-        #write h6,
-        #write p,
-        #write pre {
-            width: inherit;
-        }
-
-        #write h1,
-        #write h2,
-        #write h3,
-        #write h4,
-        #write h5,
-        #write h6,
-        #write p {
-            position: relative;
-        }
-
-        p {
-            line-height: inherit;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            break-after: avoid-page;
-            break-inside: avoid;
-            orphans: 4;
-        }
-
-        p {
-            orphans: 4;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.8rem;
-        }
-
-        h3 {
-            font-size: 1.6rem;
-        }
-
-        h4 {
-            font-size: 1.4rem;
-        }
-
-        h5 {
-            font-size: 1.2rem;
-        }
-
-        h6 {
-            font-size: 1rem;
-        }
-
-        .md-math-block,
-        .md-rawblock,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        p {
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .md-blockmeta {
-            color: rgb(204, 204, 204);
-            font-weight: 700;
-            font-style: italic;
-        }
-
-        a {
-            cursor: pointer;
-        }
-
-        sup.md-footnote {
-            padding: 2px 4px;
-            background-color: rgba(238, 238, 238, 0.7);
-            color: rgb(85, 85, 85);
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        sup.md-footnote a,
-        sup.md-footnote a:hover {
-            color: inherit;
-            text-transform: inherit;
-            text-decoration: inherit;
-        }
-
-        #write input[type="checkbox"] {
-            cursor: pointer;
-            width: inherit;
-            height: inherit;
-        }
-
-        figure {
-            overflow-x: auto;
-            margin: 1.2em 0px;
-            max-width: calc(100% + 16px);
-            padding: 0px;
-        }
-
-        figure>table {
-            margin: 0px;
-        }
-
-        tr {
-            break-inside: avoid;
-            break-after: auto;
-        }
-
-        thead {
-            display: table-header-group;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0px;
-            width: 100%;
-            overflow: auto;
-            break-inside: auto;
-            text-align: left;
-        }
-
-        table.md-table td {
-            min-width: 32px;
-        }
-
-        .CodeMirror-gutters {
-            border-right: 0px;
-            background-color: inherit;
-        }
-
-        .CodeMirror-linenumber {
-            user-select: none;
-        }
-
-        .CodeMirror {
-            text-align: left;
-        }
-
-        .CodeMirror-placeholder {
-            opacity: 0.3;
-        }
-
-        .CodeMirror pre {
-            padding: 0px 4px;
-        }
-
-        .CodeMirror-lines {
-            padding: 0px;
-        }
-
-        div.hr:focus {
-            cursor: none;
-        }
-
-        #write pre {
-            white-space: pre-wrap;
-        }
-
-        #write.fences-no-line-wrapping pre {
-            white-space: pre;
-        }
-
-        #write pre.ty-contain-cm {
-            white-space: normal;
-        }
-
-        .CodeMirror-gutters {
-            margin-right: 4px;
-        }
-
-        .md-fences {
-            font-size: 0.9rem;
-            display: block;
-            break-inside: avoid;
-            text-align: left;
-            overflow: visible;
-            white-space: pre;
-            background: inherit;
-            position: relative !important;
-        }
-
-        .md-fences-adv-panel {
-            width: 100%;
-            margin-top: 10px;
-            text-align: center;
-            padding-top: 0px;
-            padding-bottom: 8px;
-            overflow-x: auto;
-        }
-
-        #write .md-fences.mock-cm {
-            white-space: pre-wrap;
-        }
-
-        .md-fences.md-fences-with-lineno {
-            padding-left: 0px;
-        }
-
-        #write.fences-no-line-wrapping .md-fences.mock-cm {
-            white-space: pre;
-            overflow-x: auto;
-        }
-
-        .md-fences.mock-cm.md-fences-with-lineno {
-            padding-left: 8px;
-        }
-
-        .CodeMirror-line,
-        twitterwidget {
-            break-inside: avoid;
-        }
-
-        .footnotes {
-            opacity: 0.8;
-            font-size: 0.9rem;
-            margin-top: 1em;
-            margin-bottom: 1em;
-        }
-
-        .footnotes+.footnotes {
-            margin-top: 0px;
-        }
-
-        .md-reset {
-            margin: 0px;
-            padding: 0px;
-            border: 0px;
-            outline: 0px;
-            vertical-align: top;
-            background: 0px 0px;
-            text-decoration: none;
-            text-shadow: none;
-            float: none;
-            position: static;
-            width: auto;
-            height: auto;
-            white-space: nowrap;
-            cursor: inherit;
-            -webkit-tap-highlight-color: transparent;
-            line-height: normal;
-            font-weight: 400;
-            text-align: left;
-            box-sizing: content-box;
-            direction: ltr;
-        }
-
-        li div {
-            padding-top: 0px;
-        }
-
-        blockquote {
-            margin: 1rem 0px;
-        }
-
-        li .mathjax-block,
-        li p {
-            margin: 0.5rem 0px;
-        }
-
-        li blockquote {
-            margin: 1rem 0px;
-        }
-
-        li {
-            margin: 0px;
-            position: relative;
-        }
-
-        blockquote> :last-child {
-            margin-bottom: 0px;
-        }
-
-        blockquote> :first-child,
-        li> :first-child {
-            margin-top: 0px;
-        }
-
-        .footnotes-area {
-            color: rgb(136, 136, 136);
-            margin-top: 0.714rem;
-            padding-bottom: 0.143rem;
-            white-space: normal;
-        }
-
-        #write .footnote-line {
-            white-space: pre-wrap;
-        }
-
-        @media print {
-
-            body,
-            html {
-                border: 1px solid transparent;
-                height: 99%;
-                break-after: avoid;
-                break-before: avoid;
-                font-variant-ligatures: no-common-ligatures;
-            }
-
-            #write {
-                margin-top: 0px;
-                padding-top: 0px;
-                border-color: transparent !important;
-            }
-
-            .typora-export * {
-                -webkit-print-color-adjust: exact;
-            }
-
-            .typora-export #write {
-                break-after: avoid;
-            }
-
-            .typora-export #write::after {
-                height: 0px;
-            }
-
-            .is-mac table {
-                break-inside: avoid;
-            }
-
-            .typora-export-show-outline .typora-export-sidebar {
-                display: none;
+        @media only print {
+            img {
+                max-height: 100vh;
+                object-fit: contain;
             }
         }
 
-        .footnote-line {
-            margin-top: 0.714em;
-            font-size: 0.7em;
+        @page {
+            margin: 1in;
         }
 
-        a img,
-        img a {
-            cursor: pointer;
+        .collection-content {
+            font-size: 0.875rem;
         }
 
-        pre.md-meta-block {
-            font-size: 0.8rem;
-            min-height: 0.8rem;
-            white-space: pre-wrap;
-            background: rgb(204, 204, 204);
-            display: block;
-            overflow-x: hidden;
-        }
-
-        p>.md-image:only-child:not(.md-img-error) img,
-        p>img:only-child {
-            display: block;
-            margin: auto;
-        }
-
-        #write.first-line-indent p>.md-image:only-child:not(.md-img-error) img {
-            left: -2em;
-            position: relative;
-        }
-
-        p>.md-image:only-child {
-            display: inline-block;
-            width: 100%;
-        }
-
-        #write .MathJax_Display {
-            margin: 0.8em 0px 0px;
-        }
-
-        .md-math-block {
-            width: 100%;
-        }
-
-        .md-math-block:not(:empty)::after {
-            display: none;
-        }
-
-        .MathJax_ref {
-            fill: currentcolor;
-        }
-
-        [contenteditable="true"]:active,
-        [contenteditable="true"]:focus,
-        [contenteditable="false"]:active,
-        [contenteditable="false"]:focus {
-            outline: 0px;
-            box-shadow: none;
-        }
-
-        .md-task-list-item {
-            position: relative;
-            list-style-type: none;
-        }
-
-        .task-list-item.md-task-list-item {
-            padding-left: 0px;
-        }
-
-        .md-task-list-item>input {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            margin-left: -1.2em;
-            margin-top: calc(1em - 10px);
-            border: none;
-        }
-
-        .math {
-            font-size: 1rem;
-        }
-
-        .md-toc {
-            min-height: 3.58rem;
-            position: relative;
-            font-size: 0.9rem;
-            border-radius: 10px;
-        }
-
-        .md-toc-content {
-            position: relative;
-            margin-left: 0px;
-        }
-
-        .md-toc-content::after,
-        .md-toc::after {
-            display: none;
-        }
-
-        .md-toc-item {
-            display: block;
-            color: rgb(65, 131, 196);
-        }
-
-        .md-toc-item a {
-            text-decoration: none;
-        }
-
-        .md-toc-inner:hover {
-            text-decoration: underline;
-        }
-
-        .md-toc-inner {
-            display: inline-block;
-            cursor: pointer;
-        }
-
-        .md-toc-h1 .md-toc-inner {
-            margin-left: 0px;
-            font-weight: 700;
-        }
-
-        .md-toc-h2 .md-toc-inner {
-            margin-left: 2em;
-        }
-
-        .md-toc-h3 .md-toc-inner {
-            margin-left: 4em;
-        }
-
-        .md-toc-h4 .md-toc-inner {
-            margin-left: 6em;
-        }
-
-        .md-toc-h5 .md-toc-inner {
-            margin-left: 8em;
-        }
-
-        .md-toc-h6 .md-toc-inner {
-            margin-left: 10em;
-        }
-
-        @media screen and (max-width: 48em) {
-            .md-toc-h3 .md-toc-inner {
-                margin-left: 3.5em;
-            }
-
-            .md-toc-h4 .md-toc-inner {
-                margin-left: 5em;
-            }
-
-            .md-toc-h5 .md-toc-inner {
-                margin-left: 6.5em;
-            }
-
-            .md-toc-h6 .md-toc-inner {
-                margin-left: 8em;
-            }
-        }
-
-        a.md-toc-inner {
-            font-size: inherit;
-            font-style: inherit;
-            font-weight: inherit;
-            line-height: inherit;
-        }
-
-        .footnote-line a:not(.reversefootnote) {
-            color: inherit;
-        }
-
-        .md-attr {
-            display: none;
-        }
-
-        .md-fn-count::after {
-            content: ".";
-        }
-
-        code,
-        pre,
-        samp,
-        tt {
-            font-family: var(--monospace);
-        }
-
-        kbd {
-            margin: 0px 0.1em;
-            padding: 0.1em 0.6em;
-            font-size: 0.8em;
-            color: rgb(36, 39, 41);
-            background: rgb(255, 255, 255);
-            border: 1px solid rgb(173, 179, 185);
-            border-radius: 3px;
-            box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset;
-            white-space: nowrap;
-            vertical-align: middle;
-        }
-
-        .md-comment {
-            color: rgb(162, 127, 3);
-            opacity: 0.8;
-            font-family: var(--monospace);
-        }
-
-        code {
-            text-align: left;
-            vertical-align: initial;
-        }
-
-        a.md-print-anchor {
-            white-space: pre !important;
-            border-width: initial !important;
-            border-style: none !important;
-            border-color: initial !important;
-            display: inline-block !important;
-            position: absolute !important;
-            width: 1px !important;
-            right: 0px !important;
-            outline: 0px !important;
-            background: 0px 0px !important;
-            text-decoration: initial !important;
-            text-shadow: initial !important;
-        }
-
-        .md-inline-math .MathJax_SVG .noError {
-            display: none !important;
-        }
-
-        .html-for-mac .inline-math-svg .MathJax_SVG {
-            vertical-align: 0.2px;
-        }
-
-        .md-fences-math .MathJax_SVG_Display,
-        .md-math-block .MathJax_SVG_Display {
-            text-align: center;
-            margin: 0px;
-            position: relative;
-            text-indent: 0px;
-            max-width: none;
-            max-height: none;
-            min-height: 0px;
-            min-width: 100%;
-            width: auto;
-            overflow-y: visible;
-            display: block !important;
-        }
-
-        .MathJax_SVG_Display,
-        .md-inline-math .MathJax_SVG_Display {
-            width: auto;
-            margin: inherit;
-            display: inline-block !important;
-        }
-
-        .MathJax_SVG .MJX-monospace {
-            font-family: var(--monospace);
-        }
-
-        .MathJax_SVG .MJX-sans-serif {
-            font-family: sans-serif;
-        }
-
-        .MathJax_SVG {
-            display: inline;
-            font-style: normal;
-            font-weight: 400;
-            line-height: normal;
-            text-indent: 0px;
-            text-align: left;
-            text-transform: none;
-            letter-spacing: normal;
-            word-spacing: normal;
-            overflow-wrap: normal;
-            white-space: nowrap;
-            float: none;
-            direction: ltr;
-            max-width: none;
-            max-height: none;
-            min-width: 0px;
-            min-height: 0px;
-            border: 0px;
-            padding: 0px;
-            margin: 0px;
-            zoom: 90%;
-        }
-
-        #math-inline-preview-content {
-            zoom: 1.1;
-        }
-
-        .MathJax_SVG * {
-            transition: none 0s ease 0s;
-        }
-
-        .MathJax_SVG_Display svg {
-            vertical-align: middle !important;
-            margin-bottom: 0px !important;
-            margin-top: 0px !important;
-        }
-
-        .os-windows.monocolor-emoji .md-emoji {
-            font-family: "Segoe UI Symbol", sans-serif;
-        }
-
-        .md-diagram-panel>svg {
-            max-width: 100%;
-        }
-
-        [lang="flow"] svg,
-        [lang="mermaid"] svg {
-            max-width: 100%;
-            height: auto;
-        }
-
-        [lang="mermaid"] .node text {
-            font-size: 1rem;
-        }
-
-        table tr th {
-            border-bottom: 0px;
-        }
-
-        video {
-            max-width: 100%;
-            display: block;
-            margin: 0px auto;
-        }
-
-        iframe {
-            max-width: 100%;
-            width: 100%;
-            border: none;
-        }
-
-        .highlight td,
-        .highlight tr {
-            border: 0px;
-        }
-
-        mark {
-            background: rgb(255, 255, 0);
-            color: rgb(0, 0, 0);
-        }
-
-        .md-html-inline .md-plain,
-        .md-html-inline strong,
-        mark .md-inline-math,
-        mark strong {
-            color: inherit;
-        }
-
-        .md-expand mark .md-meta {
-            opacity: 0.3 !important;
-        }
-
-        mark .md-meta {
-            color: rgb(0, 0, 0);
-        }
-
-        @media print {
-
-            .typora-export h1,
-            .typora-export h2,
-            .typora-export h3,
-            .typora-export h4,
-            .typora-export h5,
-            .typora-export h6 {
-                break-inside: avoid;
-            }
-        }
-
-        .md-diagram-panel .messageText {
-            stroke: none !important;
-        }
-
-        .md-diagram-panel .start-state {
-            fill: var(--node-fill);
-        }
-
-        .md-diagram-panel .edgeLabel rect {
-            opacity: 1 !important;
-        }
-
-        .md-require-zoom-fix foreignobject {
-            font-size: var(--mermaid-font-zoom);
-        }
-
-        .md-fences.md-fences-math {
-            font-size: 1em;
-        }
-
-        .md-fences-math .MathJax_SVG_Display {
-            margin-top: 8px;
-            cursor: default;
-        }
-
-        .md-fences-advanced:not(.md-focus) {
-            padding: 0px;
-            white-space: nowrap;
-            border: 0px;
-        }
-
-        .md-fences-advanced:not(.md-focus) {
-            background: inherit;
-        }
-
-        .typora-export-show-outline .typora-export-content {
-            max-width: 1440px;
-            margin: auto;
+        .column-list {
             display: flex;
-            flex-direction: row;
+            justify-content: space-between;
         }
 
-        .typora-export-sidebar {
-            width: 300px;
-            font-size: 0.8rem;
-            margin-top: 80px;
-            margin-right: 18px;
+        .column {
+            padding: 0 1em;
         }
 
-        .typora-export-show-outline #write {
-            --webkit-flex: 2;
-            flex: 2 1 0%;
+        .column:first-child {
+            padding-left: 0;
         }
 
-        .typora-export-sidebar .outline-content {
-            position: fixed;
-            top: 0px;
-            max-height: 100%;
-            overflow: hidden auto;
-            padding-bottom: 30px;
-            padding-top: 60px;
-            width: 300px;
+        .column:last-child {
+            padding-right: 0;
         }
 
-        @media screen and (max-width: 1024px) {
-
-            .typora-export-sidebar,
-            .typora-export-sidebar .outline-content {
-                width: 240px;
-            }
-        }
-
-        @media screen and (max-width: 800px) {
-            .typora-export-sidebar {
-                display: none;
-            }
-        }
-
-        .outline-content li,
-        .outline-content ul {
-            margin-left: 0px;
-            margin-right: 0px;
-            padding-left: 0px;
-            padding-right: 0px;
-            list-style: none;
-        }
-
-        .outline-content ul {
-            margin-top: 0px;
-            margin-bottom: 0px;
-        }
-
-        .outline-content strong {
-            font-weight: 400;
-        }
-
-        .outline-expander {
-            width: 1rem;
-            height: 1.42857rem;
-            position: relative;
-            display: table-cell;
-            vertical-align: middle;
-            cursor: pointer;
-            padding-left: 4px;
-        }
-
-        .outline-expander::before {
-            content: "";
-            position: relative;
-            font-family: Ionicons;
-            display: inline-block;
-            font-size: 8px;
-            vertical-align: middle;
-        }
-
-        .outline-item {
-            padding-top: 3px;
-            padding-bottom: 3px;
-            cursor: pointer;
-        }
-
-        .outline-expander:hover::before {
-            content: "";
-        }
-
-        .outline-h1>.outline-item {
-            padding-left: 0px;
-        }
-
-        .outline-h2>.outline-item {
-            padding-left: 1em;
-        }
-
-        .outline-h3>.outline-item {
-            padding-left: 2em;
-        }
-
-        .outline-h4>.outline-item {
-            padding-left: 3em;
-        }
-
-        .outline-h5>.outline-item {
-            padding-left: 4em;
-        }
-
-        .outline-h6>.outline-item {
-            padding-left: 5em;
-        }
-
-        .outline-label {
-            cursor: pointer;
-            display: table-cell;
-            vertical-align: middle;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .outline-label:hover {
-            text-decoration: underline;
-        }
-
-        .outline-item:hover {
-            border-color: rgb(245, 245, 245);
-            background-color: var(--item-hover-bg-color);
-        }
-
-        .outline-item:hover {
-            margin-left: -28px;
-            margin-right: -28px;
-            border-left: 28px solid transparent;
-            border-right: 28px solid transparent;
-        }
-
-        .outline-item-single .outline-expander::before,
-        .outline-item-single .outline-expander:hover::before {
-            display: none;
-        }
-
-        .outline-item-open>.outline-item>.outline-expander::before {
-            content: "";
-        }
-
-        .outline-children {
-            display: none;
-        }
-
-        .info-panel-tab-wrapper {
-            display: none;
-        }
-
-        .outline-item-open>.outline-children {
+        .table_of_contents-item {
             display: block;
-        }
-
-        .typora-export .outline-item {
-            padding-top: 1px;
-            padding-bottom: 1px;
-        }
-
-        .typora-export .outline-item:hover {
-            margin-right: -8px;
-            border-right: 8px solid transparent;
-        }
-
-        .typora-export .outline-expander::before {
-            content: "+";
-            font-family: inherit;
-            top: -1px;
-        }
-
-        .typora-export .outline-expander:hover::before,
-        .typora-export .outline-item-open>.outline-item>.outline-expander::before {
-            content: "−";
-        }
-
-        .typora-export-collapse-outline .outline-children {
-            display: none;
-        }
-
-        .typora-export-collapse-outline .outline-item-open>.outline-children,
-        .typora-export-no-collapse-outline .outline-children {
-            display: block;
-        }
-
-        .typora-export-no-collapse-outline .outline-expander::before {
-            content: "" !important;
-        }
-
-        .typora-export-show-outline .outline-item-active>.outline-item .outline-label {
-            font-weight: 700;
-        }
-
-
-        /* cyrillic-ext */
-        /* cyrillic */
-        /* greek-ext */
-        /* greek */
-        /* vietnamese */
-        /* latin-ext */
-        /* latin */
-        /* cyrillic-ext */
-        /* cyrillic */
-        /* greek-ext */
-        /* greek */
-        /* vietnamese */
-        /* latin-ext */
-        /* latin */
-        /* cyrillic-ext */
-        /* cyrillic */
-        /* greek-ext */
-        /* greek */
-        /* vietnamese */
-        /* latin-ext */
-        /* latin */
-        /* cyrillic-ext */
-        /* cyrillic */
-        /* greek-ext */
-        /* greek */
-        /* vietnamese */
-        /* latin-ext */
-        /* latin */
-        @font-face {
-            font-family: 'Source Sans Pro';
-            font-style: normal;
-            font-weight: 600;
-            src: local('Source Sans Pro SemiBold'), local('SourceSansPro-SemiBold'), url('file:///C://Users//kjgym//AppData//Roaming//Typora/themes/vue/6xKydSBYKcSV-LCoeQqfX1RYOo3i54rwlxdu.woff2') format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        @import '';
-
-        :root {
-            --side-bar-bg-color: #fff;
-            --control-text-color: #777;
-            --font-sans-serif: 'Ubuntu', 'Source Sans Pro', sans-serif !important;
-            --font-monospace: 'Fira Code', 'Roboto Mono', monospace !important;
-        }
-
-        html {
-            font-size: 16px;
-        }
-
-        body {
-            font-family: var(--font-sans-serif);
-            color: #34495e;
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.6rem;
-            letter-spacing: 0;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        #write {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 20px 30px 100px;
-        }
-
-        #write p {
-            line-height: 1.6rem;
-            word-spacing: .05rem;
-        }
-
-        #write ol li {
-            padding-left: 0.5rem;
-        }
-
-        #write>ul:first-child,
-        #write>ol:first-child {
-            margin-top: 30px;
-        }
-
-        body>*:first-child {
-            margin-top: 0 !important;
-        }
-
-        body>*:last-child {
-            margin-bottom: 0 !important;
-        }
-
-        a {
-            color: #42b983;
-            font-weight: 600;
-            padding: 0 2px;
-            text-decoration: none;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            position: relative;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-            line-height: 1.4;
-            cursor: text;
-        }
-
-        h1:hover a.anchor,
-        h2:hover a.anchor,
-        h3:hover a.anchor,
-        h4:hover a.anchor,
-        h5:hover a.anchor,
-        h6:hover a.anchor {
-            text-decoration: none;
-        }
-
-        h1 tt,
-        h1 code {
-            font-size: inherit !important;
-        }
-
-        h2 tt,
-        h2 code {
-            font-size: inherit !important;
-        }
-
-        h3 tt,
-        h3 code {
-            font-size: inherit !important;
-        }
-
-        h4 tt,
-        h4 code {
-            font-size: inherit !important;
-        }
-
-        h5 tt,
-        h5 code {
-            font-size: inherit !important;
-        }
-
-        h6 tt,
-        h6 code {
-            font-size: inherit !important;
-        }
-
-        h2 a,
-        h3 a {
-            color: #34495e;
-        }
-
-        h1 {
-            padding-bottom: .4rem;
-            font-size: 2.2rem;
+            font-size: 0.875rem;
             line-height: 1.3;
+            padding: 0.125rem;
         }
 
-        h2 {
-            font-size: 1.75rem;
-            line-height: 1.225;
-            margin: 35px 0 15px;
-            padding-bottom: 0.5em;
-            border-bottom: 1px solid #ddd;
+        .table_of_contents-indent-1 {
+            margin-left: 1.5rem;
         }
 
-        h3 {
-            font-size: 1.4rem;
-            line-height: 1.43;
-            margin: 20px 0 7px;
+        .table_of_contents-indent-2 {
+            margin-left: 3rem;
         }
 
-        h4 {
-            font-size: 1.2rem;
+        .table_of_contents-indent-3 {
+            margin-left: 4.5rem;
         }
 
-        h5 {
-            font-size: 1rem;
+        .table_of_contents-link {
+            text-decoration: none;
+            opacity: 0.7;
+            border-bottom: 1px solid rgba(55, 53, 47, 0.18);
         }
 
-        h6 {
-            font-size: 1rem;
-            color: #777;
-        }
-
-        p,
-        blockquote,
-        ul,
-        ol,
-        dl,
-        table {
-            margin: 0.8em 0;
-        }
-
-        li>ol,
-        li>ul {
-            margin: 0 0;
-        }
-
-        hr {
-            height: 2px;
-            padding: 0;
-            margin: 16px 0;
-            background-color: #e7e7e7;
-            border: 0 none;
-            overflow: hidden;
-            box-sizing: content-box;
-        }
-
-        body>h2:first-child {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        body>h1:first-child {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        body>h1:first-child+h2 {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        body>h3:first-child,
-        body>h4:first-child,
-        body>h5:first-child,
-        body>h6:first-child {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        a:first-child h1,
-        a:first-child h2,
-        a:first-child h3,
-        a:first-child h4,
-        a:first-child h5,
-        a:first-child h6 {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        h1 p,
-        h2 p,
-        h3 p,
-        h4 p,
-        h5 p,
-        h6 p {
-            margin-top: 0;
-        }
-
-        li p.first {
-            display: inline-block;
-        }
-
-        ul,
-        ol {
-            padding-left: 30px;
-        }
-
-        ul:first-child,
-        ol:first-child {
-            margin-top: 0;
-        }
-
-        ul:last-child,
-        ol:last-child {
-            margin-bottom: 0;
-        }
-
-        blockquote {
-            border-left: 4px solid #42b983;
-            padding: 10px 15px;
-            color: #777;
-            background-color: rgba(66, 185, 131, .1);
+        table,
+        th,
+        td {
+            border: 1px solid rgba(55, 53, 47, 0.09);
+            border-collapse: collapse;
         }
 
         table {
-            padding: 0;
-            word-break: initial;
-        }
-
-        table tr {
-            border-top: 1px solid #dfe2e5;
-            margin: 0;
-            padding: 0;
-        }
-
-        table tr:nth-child(2n),
-        thead {
-            background-color: #fafafa;
-        }
-
-        table tr th {
-            font-weight: bold;
-            border: 1px solid #dfe2e5;
-            border-bottom: 0;
-            text-align: left;
-            margin: 0;
-            padding: 6px 13px;
-        }
-
-        table tr td {
-            border: 1px solid #dfe2e5;
-            text-align: left;
-            margin: 0;
-            padding: 6px 13px;
-        }
-
-        table tr th:first-child,
-        table tr td:first-child {
-            margin-top: 0;
-        }
-
-        table tr th:last-child,
-        table tr td:last-child {
-            margin-bottom: 0;
-        }
-
-        #write strong {
-            padding: 0 1px;
-        }
-
-        #write em {
-            padding: 0 5px 0 2px;
-        }
-
-        #write table thead th {
-            background-color: #f2f2f2;
-        }
-
-        #write .CodeMirror-gutters {
+            border-left: none;
             border-right: none;
         }
 
-        #write .md-fences {
-            border: 1px solid #F4F4F4;
-            -webkit-font-smoothing: initial;
-            margin: 0.8rem 0 !important;
-            padding: 0.3rem 0 !important;
-            line-height: 1.43rem;
-            background-color: #F8F8F8 !important;
-            border-radius: 2px;
-            font-family: var(--font-monospace);
-            font-size: 0.85rem;
-            word-wrap: normal;
+        th,
+        td {
+            font-weight: normal;
+            padding: 0.25em 0.5em;
+            line-height: 1.5;
+            min-height: 1.5em;
+            text-align: left;
         }
 
-        #write .CodeMirror-wrap .CodeMirror-code pre {
-            padding-left: 12px;
+        th {
+            color: rgba(55, 53, 47, 0.6);
         }
 
-        #write code,
-        tt {
-            padding: 2px 4px;
-            border-radius: 2px;
-            font-family: var(--font-monospace);
-            font-size: 0.92rem;
-            color: #e96900;
-            background-color: #f8f8f8;
+        ol,
+        ul {
+            margin: 0;
+            margin-block-start: 0.6em;
+            margin-block-end: 0.6em;
         }
 
-        tt {
-            margin: 0 2px;
+        li > ol:first-child,
+        li > ul:first-child {
+            margin-block-start: 0.6em;
         }
 
-        #write .md-footnote {
-            background-color: #f8f8f8;
-            color: #e96900;
+        ul > li {
+            list-style: disc;
         }
 
-        /* heighlight. */
-        #write mark {
-            background-color: #EBFFEB;
-            border-radius: 2px;
-            padding: 2px 4px;
-            margin: 0 2px;
-            color: #222;
+        ul.to-do-list {
+            text-indent: -1.7em;
+        }
+
+        ul.to-do-list > li {
+            list-style: none;
+        }
+
+        .to-do-children-checked {
+            text-decoration: line-through;
+            opacity: 0.375;
+        }
+
+        ul.toggle > li {
+            list-style: none;
+        }
+
+        ul {
+            padding-inline-start: 1.7em;
+        }
+
+        ul > li {
+            padding-left: 0.1em;
+        }
+
+        ol {
+            padding-inline-start: 1.6em;
+        }
+
+        ol > li {
+            padding-left: 0.2em;
+        }
+
+        .mono ol {
+            padding-inline-start: 2em;
+        }
+
+        .mono ol > li {
+            text-indent: -0.4em;
+        }
+
+        .toggle {
+            padding-inline-start: 0em;
+            list-style-type: none;
+        }
+
+        /* Indent toggle children */
+        .toggle > li > details {
+            padding-left: 1.7em;
+        }
+
+        .toggle > li > details > summary {
+            margin-left: -1.1em;
+        }
+
+        .selected-value {
+            display: inline-block;
+            padding: 0 0.5em;
+            background: rgba(206, 205, 202, 0.5);
+            border-radius: 3px;
+            margin-right: 0.5em;
+            margin-top: 0.3em;
+            margin-bottom: 0.3em;
+            white-space: nowrap;
+        }
+
+        .collection-title {
+            display: inline-block;
+            margin-right: 1em;
+        }
+
+        .simple-table {
+            margin-top: 1em;
+            font-size: 0.875rem;
+            empty-cells: show;
+        }
+
+        .simple-table td {
+            height: 29px;
+            min-width: 120px;
+        }
+
+        .simple-table th {
+            height: 29px;
+            min-width: 120px;
+        }
+
+        .simple-table-header-color {
+            background: rgb(247, 246, 243);
+            color: black;
+        }
+
+        .simple-table-header {
             font-weight: 500;
         }
 
-        #write del {
-            padding: 1px 2px;
+        time {
+            opacity: 0.5;
         }
 
-        .cm-s-inner .cm-link,
-        .cm-s-inner.cm-link {
-            color: #22a2c9;
+        .icon {
+            display: inline-block;
+            max-width: 1.2em;
+            max-height: 1.2em;
+            text-decoration: none;
+            vertical-align: text-bottom;
+            margin-right: 0.5em;
         }
 
-        .cm-s-inner .cm-string {
-            color: #22a2c9;
+        img.icon {
+            border-radius: 3px;
         }
 
-        .md-task-list-item>input {
-            margin-left: -1.3em;
+        .user-icon {
+            width: 1.5em;
+            height: 1.5em;
+            border-radius: 100%;
+            margin-right: 0.5rem;
         }
 
-        @media print {
-            html {
-                font-size: 13px;
-            }
-
-            table,
-            pre {
-                page-break-inside: avoid;
-            }
-
-            pre {
-                word-wrap: break-word;
-            }
+        .user-icon-inner {
+            font-size: 0.8em;
         }
 
-        .md-fences {
-            background-color: #f8f8f8;
+        .text-icon {
+            border: 1px solid #000;
+            text-align: center;
         }
 
-        #write pre.md-meta-block {
-            padding: 1rem;
+        .page-cover-image {
+            display: block;
+            object-fit: cover;
+            width: 100%;
+            max-height: 30vh;
+        }
+
+        .page-header-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header-icon-with-cover {
+            margin-top: -0.72em;
+            margin-left: 0.07em;
+        }
+
+        .page-header-icon img {
+            border-radius: 3px;
+        }
+
+        .link-to-page {
+            margin: 1em 0;
+            padding: 0;
+            border: none;
+            font-weight: 500;
+        }
+
+        p > .user {
+            opacity: 0.5;
+        }
+
+        td > .user,
+        td > time {
+            white-space: nowrap;
+        }
+
+        input[type="checkbox"] {
+            transform: scale(1.5);
+            margin-right: 0.6em;
+            vertical-align: middle;
+        }
+
+        p {
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+
+        .image {
+            border: none;
+            margin: 1.5em 0;
+            padding: 0;
+            border-radius: 0;
+            text-align: center;
+        }
+
+        .code,
+        code {
+            background: rgba(135, 131, 120, 0.15);
+            border-radius: 3px;
+            padding: 0.2em 0.4em;
+            border-radius: 3px;
             font-size: 85%;
-            line-height: 1.45;
-            background-color: #f7f7f7;
-            border: 0;
-            border-radius: 3px;
-            color: #777777;
-            margin-top: 0 !important;
+            tab-size: 2;
         }
 
-        .mathjax-block>.code-tooltip {
-            bottom: .375rem;
+        code {
+            color: #eb5757;
         }
 
-        #write>h3.md-focus:before {
-            left: -1.5625rem;
-            top: .375rem;
+        .code {
+            padding: 1.5em 1em;
         }
 
-        #write>h4.md-focus:before {
-            left: -1.5625rem;
-            top: .285714286rem;
+        .code-wrap {
+            white-space: pre-wrap;
+            word-break: break-all;
         }
 
-        #write>h5.md-focus:before {
-            left: -1.5625rem;
-            top: .285714286rem;
-        }
-
-        #write>h6.md-focus:before {
-            left: -1.5625rem;
-            top: .285714286rem;
-        }
-
-        .md-image>.md-meta {
-            border-radius: 3px;
-            font-family: var(--font-monospace);
-            padding: 2px 0 0 4px;
-            font-size: 0.9em;
+        .code > code {
+            background: none;
+            padding: 0;
+            font-size: 100%;
             color: inherit;
         }
 
-        .md-tag {
+        blockquote {
+            font-size: 1.25em;
+            margin: 1em 0;
+            padding-left: 1em;
+            border-left: 3px solid rgb(55, 53, 47);
+        }
+
+        .bookmark {
+            text-decoration: none;
+            max-height: 8em;
+            padding: 0;
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+        }
+
+        .bookmark-title {
+            font-size: 0.85em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            height: 1.75em;
+            white-space: nowrap;
+        }
+
+        .bookmark-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bookmark-info {
+            flex: 4 1 180px;
+            padding: 12px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bookmark-image {
+            width: 33%;
+            flex: 1 1 180px;
+            display: block;
+            position: relative;
+            object-fit: cover;
+            border-radius: 1px;
+        }
+
+        .bookmark-description {
+            color: rgba(55, 53, 47, 0.6);
+            font-size: 0.75em;
+            overflow: hidden;
+            max-height: 4.5em;
+            word-break: break-word;
+        }
+
+        .bookmark-href {
+            font-size: 0.75em;
+            margin-top: 0.25em;
+        }
+
+        .sans {
+            font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+        }
+
+        .code {
+            font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace;
+        }
+
+        .serif {
+            font-family: Lyon-Text, Georgia, ui-serif, serif;
+        }
+
+        .mono {
+            font-family: iawriter-mono, Nitti, Menlo, Courier, monospace;
+        }
+
+        .pdf .sans {
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP';
+        }
+
+        .pdf:lang(zh-CN) .sans {
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC';
+        }
+
+        .pdf:lang(zh-TW) .sans {
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC';
+        }
+
+        .pdf:lang(ko-KR) .sans {
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR';
+        }
+
+        .pdf .code {
+            font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+        }
+
+        .pdf:lang(zh-CN) .code {
+            font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+        }
+
+        .pdf:lang(zh-TW) .code {
+            font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+        }
+
+        .pdf:lang(ko-KR) .code {
+            font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+        }
+
+        .pdf .serif {
+            font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP';
+        }
+
+        .pdf:lang(zh-CN) .serif {
+            font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC';
+        }
+
+        .pdf:lang(zh-TW) .serif {
+            font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC';
+        }
+
+        .pdf:lang(ko-KR) .serif {
+            font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR';
+        }
+
+        .pdf .mono {
+            font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP';
+        }
+
+        .pdf:lang(zh-CN) .mono {
+            font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC';
+        }
+
+        .pdf:lang(zh-TW) .mono {
+            font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC';
+        }
+
+        .pdf:lang(ko-KR) .mono {
+            font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR';
+        }
+
+        .highlight-default {
+            color: rgba(55, 53, 47, 1);
+        }
+
+        .highlight-gray {
+            color: rgba(120, 119, 116, 1);
+            fill: rgba(120, 119, 116, 1);
+        }
+
+        .highlight-brown {
+            color: rgba(159, 107, 83, 1);
+            fill: rgba(159, 107, 83, 1);
+        }
+
+        .highlight-orange {
+            color: rgba(217, 115, 13, 1);
+            fill: rgba(217, 115, 13, 1);
+        }
+
+        .highlight-yellow {
+            color: rgba(203, 145, 47, 1);
+            fill: rgba(203, 145, 47, 1);
+        }
+
+        .highlight-teal {
+            color: rgba(68, 131, 97, 1);
+            fill: rgba(68, 131, 97, 1);
+        }
+
+        .highlight-blue {
+            color: rgba(51, 126, 169, 1);
+            fill: rgba(51, 126, 169, 1);
+        }
+
+        .highlight-purple {
+            color: rgba(144, 101, 176, 1);
+            fill: rgba(144, 101, 176, 1);
+        }
+
+        .highlight-pink {
+            color: rgba(193, 76, 138, 1);
+            fill: rgba(193, 76, 138, 1);
+        }
+
+        .highlight-red {
+            color: rgba(212, 76, 71, 1);
+            fill: rgba(212, 76, 71, 1);
+        }
+
+        .highlight-gray_background {
+            background: rgba(241, 241, 239, 1);
+        }
+
+        .highlight-brown_background {
+            background: rgba(244, 238, 238, 1);
+        }
+
+        .highlight-orange_background {
+            background: rgba(251, 236, 221, 1);
+        }
+
+        .highlight-yellow_background {
+            background: rgba(251, 243, 219, 1);
+        }
+
+        .highlight-teal_background {
+            background: rgba(237, 243, 236, 1);
+        }
+
+        .highlight-blue_background {
+            background: rgba(231, 243, 248, 1);
+        }
+
+        .highlight-purple_background {
+            background: rgba(244, 240, 247, 0.8);
+        }
+
+        .highlight-pink_background {
+            background: rgba(249, 238, 243, 0.8);
+        }
+
+        .highlight-red_background {
+            background: rgba(253, 235, 236, 1);
+        }
+
+        .block-color-default {
             color: inherit;
+            fill: inherit;
         }
 
-        .md-toc {
-            margin-top: 20px;
-            padding-bottom: 20px;
+        .block-color-gray {
+            color: rgba(120, 119, 116, 1);
+            fill: rgba(120, 119, 116, 1);
         }
 
-        .sidebar-tabs {
-            border-bottom: none;
+        .block-color-brown {
+            color: rgba(159, 107, 83, 1);
+            fill: rgba(159, 107, 83, 1);
         }
 
-        #typora-quick-open {
-            border: 1px solid #ddd;
-            background-color: #f8f8f8;
+        .block-color-orange {
+            color: rgba(217, 115, 13, 1);
+            fill: rgba(217, 115, 13, 1);
         }
 
-        #typora-quick-open-item {
-            background-color: #FAFAFA;
-            border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
-            border-style: solid;
-            border-width: 1px;
+        .block-color-yellow {
+            color: rgba(203, 145, 47, 1);
+            fill: rgba(203, 145, 47, 1);
         }
 
-        #md-notification:before {
-            top: 10px;
+        .block-color-teal {
+            color: rgba(68, 131, 97, 1);
+            fill: rgba(68, 131, 97, 1);
         }
 
-        /** focus mode */
-
-        .on-focus-mode blockquote {
-            border-left-color: rgba(85, 85, 85, 0.12);
+        .block-color-blue {
+            color: rgba(51, 126, 169, 1);
+            fill: rgba(51, 126, 169, 1);
         }
 
-        header,
-        .context-menu,
-        .megamenu-content,
-        footer {
-            font-family: var(--font-sans-serif);
+        .block-color-purple {
+            color: rgba(144, 101, 176, 1);
+            fill: rgba(144, 101, 176, 1);
         }
 
-        .file-node-content:hover .file-node-icon,
-        .file-node-content:hover .file-node-open-state {
-            visibility: visible;
+        .block-color-pink {
+            color: rgba(193, 76, 138, 1);
+            fill: rgba(193, 76, 138, 1);
         }
 
-        .mac-seamless-mode #typora-sidebar {
-            background-color: var(--side-bar-bg-color);
+        .block-color-red {
+            color: rgba(212, 76, 71, 1);
+            fill: rgba(212, 76, 71, 1);
         }
 
-        .md-lang {
-            color: #b4654d;
+        .block-color-gray_background {
+            background: rgba(241, 241, 239, 1);
         }
 
-        .html-for-mac .context-menu {
-            --item-hover-bg-color: #E6F0FE;
+        .block-color-brown_background {
+            background: rgba(244, 238, 238, 1);
         }
 
-
-        :root {
-            --mermaid-font-zoom: 1.25em;
+        .block-color-orange_background {
+            background: rgba(251, 236, 221, 1);
         }
-    </style>
-    <title>resume</title>
+
+        .block-color-yellow_background {
+            background: rgba(251, 243, 219, 1);
+        }
+
+        .block-color-teal_background {
+            background: rgba(237, 243, 236, 1);
+        }
+
+        .block-color-blue_background {
+            background: rgba(231, 243, 248, 1);
+        }
+
+        .block-color-purple_background {
+            background: rgba(244, 240, 247, 0.8);
+        }
+
+        .block-color-pink_background {
+            background: rgba(249, 238, 243, 0.8);
+        }
+
+        .block-color-red_background {
+            background: rgba(253, 235, 236, 1);
+        }
+
+        .select-value-color-pink {
+            background-color: rgba(245, 224, 233, 1);
+        }
+
+        .select-value-color-purple {
+            background-color: rgba(232, 222, 238, 1);
+        }
+
+        .select-value-color-green {
+            background-color: rgba(219, 237, 219, 1);
+        }
+
+        .select-value-color-gray {
+            background-color: rgba(227, 226, 224, 1);
+        }
+
+        .select-value-color-opaquegray {
+            background-color: rgba(255, 255, 255, 0.0375);
+        }
+
+        .select-value-color-orange {
+            background-color: rgba(250, 222, 201, 1);
+        }
+
+        .select-value-color-brown {
+            background-color: rgba(238, 224, 218, 1);
+        }
+
+        .select-value-color-red {
+            background-color: rgba(255, 226, 221, 1);
+        }
+
+        .select-value-color-yellow {
+            background-color: rgba(253, 236, 200, 1);
+        }
+
+        .select-value-color-blue {
+            background-color: rgba(211, 229, 239, 1);
+        }
+
+        .checkbox {
+            display: inline-flex;
+            vertical-align: text-bottom;
+            width: 16;
+            height: 16;
+            background-size: 16px;
+            margin-left: 2px;
+            margin-right: 5px;
+        }
+
+        .checkbox-on {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+        }
+
+        .checkbox-off {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+        }
+
+	</style>
 </head>
-
-<body class='typora-export os-windows'>
-    <div class='typora-export-content'>
-        <div id='write' class=' first-line-indent'>
-            <h1 id='康佳的简历'><span>康佳的简历</span></h1>
-            <h2 id='个人信息'><span>个人信息</span></h2>
-            <ul>
-                <li><strong><span>我：</span></strong><span>康佳 | 男 | Base 天津</span></li>
-                <li><strong><span>教育水平：</span></strong><span>本科 | 河北大学 | 计算机科学与技术专业 | 2019 年毕业</span></li>
-                <li><strong><span>手机 &amp; 微信：</span></strong><span>+86 18232110170</span></li>
-                <li><strong><span>邮箱：</span></strong><a href='mailto:2466267753@qq.com' target='_blank'
-                        class='url'>2466267753@qq.com</a></li>
-                <li><strong><span>个人主页：</span></strong><a href='https://ikangjia.cn' target='_blank'
-                        class='url'>https://ikangjia.cn</a></li>
-            </ul>
-            <h3 id='后端'><span>后端</span></h3>
-            <ul>
-                <li><span>熟练使用 Java 语言，掌握 JavaSE 基础、集合操作、多线程操作、IO操作、反射、注解等知识；熟练使用 Lambda 语法、函数式编程、流操作；了解 JVM 的组成与类加载机制</span></li>
-                <li><span>熟练使用 Spring、Spring MVC、Spring Boot 主流开发框架。了解 Spring Cloud 以及常用组件，有简单使用经历</span></li>
-                <li><span>熟练使用 Mybatis、Mybatis-Plus，了解 Hibernate 框架</span></li>
-                <li><span>熟练使用 SQL 语句，熟练使用 Mysql 数据库。熟悉 Redis 缓存中间件</span></li>
-                <li><span>熟悉消息中间件 Rabbit MQ 简单使用</span></li>
-                <li><span>熟练使用容器工具 Docker ，工作中有使用 Docker 部署过项目</span></li>
-                <li><span>熟悉 Linux 常用命令，有 CentOS 上部署 Java 项目经验</span></li>
-            </ul>
-            <h3 id='团队协作'><span>团队协作</span></h3>
-            <ul>
-                <li><span>熟练使用 Git，工作中使用 Gitlab 做代码仓库</span></li>
-                <li><span>熟悉阿里巴巴 Java 开发规约，注重代码规范，乐意遵守各种优秀的代码规范</span></li>
-                <li><span>有禅道、Confluence、Sonar 代码质量检测、Jenkins 使用经验</span></li>
-            </ul>
-            <h3 id='其他'><span>其他</span></h3>
-            <ul>
-                <li><span>对于 HTML、CSS、JS 等前端技术了解，对 Vue 技术栈有兴趣</span></li>
-                <li><span>熟练使用 IDEA、Eclipse、Navicat、SQLyog、Postman、XShell、XFtp 等工具</span></li>
-                <li><span>熟练使用 Word、XMind、Visio、ProcessOn等文档工具</span></li>
-                <li><span>熟练使用 Typora 软件，编写 md 文档</span></li>
-            </ul>
-            <h2 id='工作经历'><span>工作经历</span></h2>
-            <h3 id='202106-----至今-天津南大通用数据技术股份有限公司'><span>2021.06 — 至今 天津南大通用数据技术股份有限公司</span></h3>
-            <p><span>任职于天津南大通用总部的数据智能产品研发部门，担任 后端开发工程师。主要负责管理后台等项目的维护与开发工作。</span></p>
-            <h3 id='201907---202004--紫光云技术有限公司--java-开发'><span>2019.07—2020.04 紫光云技术有限公司 | Java 开发</span></h3>
-            <p><span>参与模型设计器、日志服务产品、 DMS 项目二期的后端 API 设计和开发，编写较高质量的代码，个人很注重代码规范；</span></p>
-            <p><span>参与数据库设计，从逻辑设计、画 E-R 图 到使用 Navicat 进行库表的建立；</span></p>
-            <p><span>参与编写完善开发各个阶段的文档资料。</span></p>
-            <h3 id='201902---201904--紫光云技术有限公司--java-实习'><span>2019.02—2019.04 紫光云技术有限公司 | Java 实习</span></h3>
-            <p><span>期间主要参与了组内 DMS 项目开发（DMS ：一个基于 B-S 架构的数据库管理系统，有类似于阿里的 DMS 产品）。</span></p>
-            <h3 id='201806---201809-大三暑假期间--在保定同升公司实习--java-开发'><span>2018.06—2018.09 大三暑假期间 在保定同升公司实习 | Java 开发</span>
-            </h3>
-            <p><span>期间参与了库存管理系统项目的后端部分模块的开发。</span></p>
-            <h2 id='项目经验'><span>项目经验</span></h2>
-            <p><strong><span>紫光云日志服务产品 （</span><a
-                        href='https://www.unicloud.com/app/logservice/'><span>线上地址</span></a><span>）</span></strong></p>
-            <p><span>项目描述：日志服务产品提供日志数据采集、消费、投递以及查询分析功能，服务运维、运营、安全等场景。</span></p>
-            <p><span>后端技术架构：Spring Boot、Mybatis-Plus、Mysql，此外还涉及 Elastic Search、Rabbit MQ操作以及对接企业微信进行获取联系人信息、发送企业微信信息等。</span></p>
-            <p><span>我负责整个产品后端控制台的开发。这个产品控制台主要功能是：项目管理、日志库管理、日志配置管理、日志告警、ES 存储主索引创建操作等。</span></p>
-            <p><span>1、根据需求设计整个后端的数据库，建立库、表；</span></p>
-            <p><span>2、后端开发环境搭建，SpringBoot 集成 Mybatis-Plus 、Druid 数据源连接池、Swagger、Rabbit MQ 等；</span></p>
-            <p><span>3、设计与前端的 API 接口，设计项目分层与编码开发；</span></p>
-            <p><span>4、接收来自 Rabbit MQ 的告警信息，解析处理。一是对接公司的短信、邮件接口发送告警信息，二是调用企业微信相关 API 发送告警信息；</span></p>
-            <p><span>5、使用 Swagger 结合 Postman 进行接口测试；与前端人员进行对接接口；</span></p>
-            <p><span>6、使用 Sonar 进行静态代码检查以及使用 Jenkins 进行项目打包。</span></p>
-            <p><strong><span>数据管理 DMS （</span><a
-                        href='https://www.unicloud.com/product/dms'><span>线上地址</span></a><span>）</span></strong></p>
-            <p><span>项目描述：基于 B-S 架构的数据库管理系统。</span></p>
-            <p><span>技术架构：SpringBoot、Spring Cloud、JDBC、Mysql。</span></p>
-            <p><span>个人工作：参与部分核心模块开发，前后端联调。</span></p>
-            <p><strong><span>模型设计器项目</span></strong></p>
-            <p><span>项目描述：比较抽象的一个项目。个人理解就是，在不同表甚至不同数据库的表里抽取出其中一些有意义的字段组成一个有意义的业务体。然后这个业务体可以被其它业务模块使用。</span></p>
-            <p><span>后端技术架构：Springboot、Mybatis-Plus、Mysql。</span></p>
-            <p><span>参与部分核心模块开发、测试以及前后端联调。</span></p>
-            <h2 id='自我评价'><span>自我评价</span></h2>
-            <ul>
-                <li><span>对工作很负责，对待开发任务认真完成。解决问题能力强，有一定抗压能力</span></li>
-                <li><span>热爱编程，善于思考，有较强的自学能力。遇到麻烦时会第一时间寻找解决方案而非抱怨</span></li>
-                <li><span>性格开朗，易相处。守时，执行力高，不拖拉</span></li>
-            </ul>
-        </div>
-    </div>
-    <a class="pin pdf_downloader" href="./files/resume.pdf" download="康佳-后端-18232110170.pdf">PDF</a>
-    <a class="pin md_downloader" href="./files/resume.md" download="康佳-后端-18232110170.md">MD</a>
-    <link rel="stylesheet" href="./index.css">
-    <script src="./index.js"></script>
+<body>
+<article id="ddb07573-6141-4744-a130-9731bf84b954" class="page sans">
+	<header><h1 class="page-title">康佳的简历</h1></header>
+	<div class="page-body"><h2 id="084c78c4-d92d-49f0-ae5f-4d5e40b6c8a3" class=""><strong>个人信息</strong></h2>
+		<hr id="763e4049-ce27-4a4a-9871-0a5ba1fa447a"/>
+		<ul id="b10f6c0e-ac6b-4a55-bd64-08421149748e" class="bulleted-list">
+			<li style="list-style-type:disc"><strong>我：</strong>康佳 | 男 | Base 天津</li>
+		</ul>
+		<ul id="01216335-7fbf-4a9f-a38d-ca7ec1e41510" class="bulleted-list">
+			<li style="list-style-type:disc"><strong>教育水平：</strong>本科 | 河北大学 | 计算机科学与技术专业 | 2019 年毕业</li>
+		</ul>
+		<ul id="63c1de47-0e3e-409b-91e0-54f913bb1dc7" class="bulleted-list">
+			<li style="list-style-type:disc"><strong>手机 &amp; 微信：</strong>+86 18232110170</li>
+		</ul>
+		<ul id="dc029db7-5eb9-4f9f-b174-1b363a407dfb" class="bulleted-list">
+			<li style="list-style-type:disc"><strong>邮箱：</strong>
+				<mark class="highlight-red"><a
+						href="mailto:ikangjia.cn@outlook.com"><strong>ikangjia.cn@outlook.com</strong></a></mark>
+			</li>
+		</ul>
+		<ul id="9f9a2cd9-02a7-403a-98f5-434ee84fe519" class="bulleted-list">
+			<li style="list-style-type:disc"><strong>个人主页：</strong>
+				<mark class="highlight-red"><a href="https://ikangjia.cn/"><strong>https://ikangjia.cn</strong></a>
+				</mark>
+			</li>
+		</ul>
+		<h2 id="b2147337-1752-4357-a307-8374e805ad12" class="">技能清单</h2>
+		<hr id="e480fa5c-6662-41de-ad11-7178a480eb72"/>
+		<h3 id="ad33b2f7-dc16-410d-b1d5-e81e3e9a678e" class=""><strong>后端</strong></h3>
+		<ul id="eab6c14e-8aee-4a29-a230-960281627547" class="bulleted-list">
+			<li style="list-style-type:disc">熟练使用 Java 语言，包括但不限于 JavaSE 基础、集合操作、多线程操作、IO操作、反射、注解等知识。熟练使用 Java8+ 语法；了解
+				JVM 的组成与类加载机制
+			</li>
+		</ul>
+		<ul id="f0a3dec9-caad-4eeb-8bfd-3d0ae0fd53a5" class="bulleted-list">
+			<li style="list-style-type:disc">熟练使用 Spring、Spring MVC、Spring Boot 框架，有多个相关项目经验。了解 Spring Cloud (Alibaba)
+				常用组件，有简单使用经验
+			</li>
+		</ul>
+		<ul id="c4d711ba-e1eb-4aa0-8375-1fd55cda4eba" class="bulleted-list">
+			<li style="list-style-type:disc">熟练使用常用的中间件，如 Mybatis、Mybatis-Plus、Rabbit MQ、 Spring Data 系列等</li>
+		</ul>
+		<ul id="7446a524-b567-4b54-a78f-86566f7be25d" class="bulleted-list">
+			<li style="list-style-type:disc">熟悉数据库的基本概念与 SQL 标准语法，可熟练使用 MySQL 数据库。熟悉 Redis 缓存中间件</li>
+		</ul>
+		<ul id="ae5cc9df-a813-4b89-b4c7-02e4ab17062e" class="bulleted-list">
+			<li style="list-style-type:disc">熟悉 Docker，可熟练使用 Docker 打包部署后端项目、MySQL 、Nginx 等</li>
+		</ul>
+		<ul id="7b223f0b-9673-4d0f-a9de-5359c8a30f4b" class="bulleted-list">
+			<li style="list-style-type:disc">熟悉 Linux 常用命令，可熟练基于 CentOS 系统搭建常用环境、部署项目等</li>
+		</ul>
+		<h3 id="94472eb3-71ab-4e33-9975-fee43b277405" class="">其他</h3>
+		<ul id="4f390ee7-56eb-4999-8360-05f67dbfc447" class="bulleted-list">
+			<li style="list-style-type:disc">了解 HTML、CSS、JS 等前端基础技术，有基于 Vue &amp; ElementUI 技术栈的开发经验</li>
+		</ul>
+		<ul id="0fe6cba0-9df5-4e0c-b872-82f4636413e8" class="bulleted-list">
+			<li style="list-style-type:disc">熟练使用 Git，能够践行 Git Flow 工作流，工作中使用 GitLab 做代码仓库</li>
+		</ul>
+		<ul id="25c6cb4c-73ee-4722-b5fe-b33c3303c5ba" class="bulleted-list">
+			<li style="list-style-type:disc">熟练使用 IDEA、Navicat、Postman、XShell、Typora、XMind、ProcessOn 等工具</li>
+		</ul>
+		<ul id="15765e43-b94a-4f14-8035-20d0701afaa6" class="bulleted-list">
+			<li style="list-style-type:disc">注重代码规范与质量，一直践行阿里的 Java 开发规约，也乐意遵守各种代码规范</li>
+		</ul>
+		<ul id="545831a3-1ad7-4f65-a798-bf15b63a2cec" class="bulleted-list">
+			<li style="list-style-type:disc">有禅道、Confluence、Sonar 代码质量检测、Jenkins 使用经验</li>
+		</ul>
+		<h2 id="3ec6aaa4-8eb4-4754-9451-1801ded672ed" class=""><strong>工作经历</strong></h2>
+		<hr id="5637e314-36a7-456f-9813-e2ec290c2427"/>
+		<h3 id="01f9a6c4-8184-4c95-992a-dd504f10ed92" class=""><strong>2021.06 - 至今 天津南大通用数据技术股份有限公司 | Java 开发</strong>
+		</h3>
+		<p id="04bd4335-3d76-48c5-8c94-7872f76ba50e" class="">任职于天津南大通用总部的数据智能产品研发部门，担任后端开发工程师。主要负责管理后台等项目的开发与维护工作。</p>
+		<p id="ae01159a-d241-4ab1-9258-6a315670779f" class="">⭐ <strong>GBase 8a MPP 统一数据监控与运维系统 </strong><code><strong>Spring
+			MVC</strong></code><strong> </strong><code><strong>GBase 8a
+			MPP</strong></code><strong> </strong><code><strong>GDBC</strong></code></p>
+		<p id="a40138fd-eb5d-4f80-9038-d9ddb361af80" class="">GBase 8a MPP 即 GBase 8a 数据库的集群产品，这个统一监控与运维系统在运维上实现了对 8a
+			数据库集群的安装、卸载、配置、管理等操作，在监控上实现了对主机、服务进程、8a 集群等不同维度的数据监控与告警。我主要负责其中的数据库管理、SQL 执行器、会话任务、SSH 调用操作等模块。后端所用技术主要是
+			Spring、Spring MVC、GDBC 等。</p>
+		<p id="0bd83942-a761-499f-b58c-65535847ea06" class="">数据库管理：在 Web 页面实现了针对 8a 集群中 VC（虚拟集群，8a
+			的一个特有概念）、库、表、视图、存储过程、数据库用户角色权限等的可视化操作。其中后端设计了 SQL Builder 模块、SQL 执行模块、AOP
+			数据源管理模块、执行结果处理模块。大大提高了系统稳定性、减少了大量样板式代码，完全可复用、可扩展。</p>
+		<p id="fa955c24-e5b5-49e2-b074-61c849214ba4" class="">SQL 执行器：在 Web 页面实现了输入 SQL 进行操作功能。主要难点是在后端自定义 Map
+			缓存以及集成定时任务框架实现了限制执行 SQL 的会话数和会话过期策略这一需求。</p>
+		<h3 id="0450f0a1-d7d1-4557-8ec8-d9cb59da8f50" class=""><strong>2019.02 - 2020.04 紫光云技术有限公司 | Java 开发</strong>
+		</h3>
+		<p id="668226bc-8492-4ce1-81b5-0aef34899efe" class="">任职于数据中台组，担任后端开发工程师。在职期间参与了模型设计器、日志服务产品、 DMS
+			项目等多个核心项目。工作内容包括但不限于后端 API 设计与开发、数据库设计（从逻辑设计、画 E-R 图到库表的建立等）、编写完善开发各个阶段的相关文档。</p>
+		<p id="e9af23b6-1785-4a67-8c92-dc83495b59d7" class="">⭐ <strong>紫光云日志服务产品 （</strong><strong><a
+				href="https://www.unicloud.com/app/logservice/">线上地址</a></strong><strong>）</strong><code><strong>Spring
+			Boot</strong></code><strong> </strong><code><strong>Mybatis-Plus</strong></code><strong> </strong><code><strong>ELK</strong></code><strong> </strong><code><strong>RabbitMQ </strong></code><strong> </strong><code><strong>企业微信</strong></code>
+		</p>
+		<p id="eac1961b-7e2c-44a4-9e7a-4797428eaa5e" class="">
+			项目描述：一款基于各种规则接入各种软件或系统的日志，进行日志数据采集、消费、投递以及查询分析功能的在线工具。常用于服务运维、运营、安全等场景。</p>
+		<p id="bf0ba4b5-7f88-4e10-9a5e-18eec002c855" class="">后端技术架构：Spring Boot、Mybatis-Plus、MySQL，此外还涉及 Elastic
+			Search、Rabbit MQ操作以及对接企业微信进行获取联系人信息、发送企业微信信息等。</p>
+		<p id="ada7ecad-ef16-4e4c-bd76-086629e305f8" class="">我负责整个产品后端的开发。这个产品控制台主要功能是：项目管理、日志库管理、日志配置管理、日志告警、ES
+			存储主索引创建操作等。</p>
+		<ol type="1" id="9d8be0b1-f599-4d5b-b1a3-5ee81c745ac4" class="numbered-list" start="1">
+			<li>根据需求设计整个后端的数据库，建立库、表；</li>
+		</ol>
+		<ol type="1" id="65b257fa-4984-43fd-ae5d-7cbca0ffd92a" class="numbered-list" start="2">
+			<li>后端开发环境搭建，Spring Boot 集成 Mybatis-Plus 、Druid 数据源连接池、Swagger、Rabbit MQ 等；</li>
+		</ol>
+		<ol type="1" id="0905262c-0b98-45cf-bc5e-d621d3af3d89" class="numbered-list" start="3">
+			<li>设计与前端的 API 接口，设计项目分层与编码开发。鉴于要集成的中间件较多，设计了 manager 层隐藏了对接企业微信、操作 Kibana 等各种纷乱的 Api，对 Service
+				层直接暴露调用接口，有效保证了代码的质量与整洁。
+			</li>
+		</ol>
+		<ol type="1" id="98e0cc51-5a38-4b15-ad50-ad6b675e088e" class="numbered-list" start="4">
+			<li>接收来自 Rabbit MQ 的告警信息，解析处理。一是对接公司的短信、邮件接口发送告警信息，二是调用企业微信相关 API 发送告警信息；</li>
+		</ol>
+		<ol type="1" id="c3460a70-d308-4891-aa3f-eec97ac80274" class="numbered-list" start="5">
+			<li>使用 Swagger 结合 Postman 进行接口测试；与前端人员进行对接接口；使用 Sonar 进行静态代码检查以及使用 Jenkins 进行项目打包。</li>
+		</ol>
+		<p id="3e724b08-4144-4983-82b1-eb271a45dabe" class="">⭐ <strong>数据管理 DMS （</strong><strong><a
+				href="https://www.unicloud.com/product/dms">线上地址</a></strong><strong>） </strong><code><strong>Spring
+			Boot</strong></code><strong> </strong><code><strong>JOOQ</strong></code><strong> </strong><code><strong>JDBC</strong></code><strong> </strong><code><strong>MySQL</strong></code><strong> </strong><code><strong>Redis</strong></code><strong> </strong><code><strong>Hive</strong></code>
+		</p>
+		<p id="fa862f75-3c97-4d70-9cd3-16926bb3652b" class="">项目描述：一个基于 B-S 架构的数据库管理系统，有点类似于阿里的 DMS 产品</p>
+		<p id="5f0164b5-a66c-4724-89ab-33145f0470ba" class="">技术架构：Spring Boot、Spring Cloud、JDBC、MySQL。</p>
+		<p id="d0ba96b9-4f5b-4df0-ae42-1928dafc042a" class="">个人工作：参与部分核心模块开发，前后端联调。</p>
+		<p id="13f82921-b371-450e-903f-83dcc3ddf2b2" class="">⭐ <strong>模型设计器项目 </strong><code><strong>Spring
+			Boot</strong></code><strong> </strong><code><strong>Spring
+			Cloud</strong></code><strong> </strong><code><strong>MySQL</strong></code></p>
+		<p id="de78497b-e187-4e9d-9d4a-ab9b67cd2c67" class="">项目描述：比较抽象的一个项目。从项目最终实现的效果来看，这是一款可以通过鼠标拖拽即可映射数据表的字段和关系，实现不写
+			SQL 也能自由查询表数据的工具。个人理解就是，在不同表甚至不同数据库的表里抽取出其中一些有意义的字段组成一个有意义的业务体。然后这个业务体可以被其它业务模块使用。</p>
+		<p id="5172bc7a-9c0f-42fd-b866-2870597cab1d" class="">后端技术架构：Spring Boot、Mybatis-Plus、MySQL。</p>
+		<p id="e6118624-9032-45b2-9061-655558dd6724" class="">参与部分核心模块开发、测试以及前后端联调。</p>
+		<h3 id="127b4de3-064d-4882-aba0-5191db401a5a" class=""><strong>2018.06—2018.09 大三暑假 保定同升公司 | Java 开发实习</strong>
+		</h3>
+		<p id="24061ac8-3dc3-474f-b1da-b588c3a2f6a9" class="">期间参与了库存管理系统项目的后端部分模块的开发。</p>
+		<h2 id="ff8f5e15-475f-413b-8cfb-ec28d3b370dd" class=""><strong>自我评价</strong></h2>
+		<hr id="c75d27be-a32b-4e3c-aac0-9902a4294f0f"/>
+		<ul id="64a259eb-9b13-4ab4-a2e5-35f7886643b5" class="bulleted-list">
+			<li style="list-style-type:disc">工作负责，对待开发任务认真完成。解决问题能力强，遇到麻烦时会第一时间寻找解决方案而非抱怨，有一定抗压能力</li>
+		</ul>
+		<ul id="b56e97b7-3f5f-45f1-b02c-c2938657c845" class="bulleted-list">
+			<li style="list-style-type:disc">热爱编程，善于思考。有较强的自学能力，也喜欢鼓捣一些编程相关的东西</li>
+		</ul>
+		<ul id="a94ceaa5-1690-4bee-9b37-41ffc337a157" class="bulleted-list">
+			<li style="list-style-type:disc">性格开朗，易相处。守时，执行力高，不拖拉</li>
+		</ul>
+	</div>
+</article>
+<a class="pin pdf_downloader" href="./files/resume.pdf" download="康佳-后端-18232110170.pdf">PDF</a>
+<a class="pin md_downloader" href="./files/resume.md" download="康佳-后端-18232110170.md">MD</a>
+<link rel="stylesheet" href="assets/index.css">
+<script src="assets/index.js"></script>
 </body>
-
 </html>
